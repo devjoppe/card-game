@@ -11,19 +11,19 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
 
     console.log("Inside GameGrid: ", gameCards)
 
-    const [isFlipped, setIsFlipped] = useState(false)
-    const [playCards, setPlayCards] = useState<gameCards[]>(gameCards)
+    const [playedCards, setPlayedCards] = useState<number[]>([])
+    const [flippedCard, setFlippedCard] = useState('is-flipped')
+    const [count, setCount] = useState(0)
 
-    const flipCard = (e:any) => {
-        console.log("Flipping", e.currentTarget)
-        e.currentTarget.classList.add('flipped')
+    const flipCard = (id:number) => {
+        console.log(id)
     }
 
     return(
         <div className="grid">
             {gameCards.map((card, id) => (
                 <div key={id}>
-                    <div className="flip-card" onClick={flipCard} id={`${id}`}>
+                    <div className="flip-card" data-card={card.card_id} onClick={() => flipCard(id)} id={`${id}`}>
                         <div className="flip-card-inner">
                             <div className="flip-card-front">
                                 <img src="../src/assets/images/card-front.png" alt="gamecard" />

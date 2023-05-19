@@ -20,9 +20,13 @@ const Game = () => {
         const duplicateCards:gameCards[] = data.flatMap(e=>
             Array(2).fill({card_id: e.card_id, url: e.url})
         )
-        console.log("TEST: ", duplicateCards)
-        // Shuffle the array
-        setGameCards(arrayShuffle(duplicateCards))
+        // Set new ID
+        const idUpdateCards = duplicateCards.map((card, index) => ({
+            ...card,
+            id: index + 1
+        }))
+        // Shuffle the array and Save the array
+        setGameCards(arrayShuffle(idUpdateCards))
     }, [])
 
     console.log(gameCards)
