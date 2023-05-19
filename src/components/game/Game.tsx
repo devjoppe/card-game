@@ -17,9 +17,10 @@ const Game = () => {
 
     useEffect(() => {
         // Create new Array with duplicates
-        const duplicateCards = data.flatMap(e=>
+        const duplicateCards:gameCards[] = data.flatMap(e=>
             Array(2).fill({card_id: e.card_id, url: e.url})
         )
+        console.log("TEST: ", duplicateCards)
         // Shuffle the array
         setGameCards(arrayShuffle(duplicateCards))
     }, [])

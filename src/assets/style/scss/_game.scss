@@ -21,6 +21,7 @@ div {
     width: 200px;
     height: 300px;
     perspective: 1000px;
+    cursor: pointer;
 }
 .flip-card-inner {
     position: relative;
@@ -30,9 +31,13 @@ div {
     transition: transform 0.8s;
     transform-style: preserve-3d;
 }
-.flip-card:hover .flip-card-inner {
+ .flip-card:hover .flip-card-inner {
+}
+
+.flipped .flip-card-inner {
     transform: rotateY(180deg);
 }
+
 .flip-card-front, .flip-card-back {
     position: absolute;
     width: 100%;

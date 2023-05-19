@@ -1,26 +1,32 @@
 [
   {
     "card_id": 1,
-    "url": "card1.svg"
+    "url": "card1.svg",
+    "isFlipped": false
   },
   {
     "card_id": 2,
-    "url": "card2.svg"
+    "url": "card2.svg",
+    "isFlipped": false
   },
   {
     "card_id": 3,
-    "url": "card3.svg"
+    "url": "card3.svg",
+    "isFlipped": false
   },
   {
     "card_id": 4,
-    "url": "card4.svg"
+    "url": "card4.svg",
+    "isFlipped": false
   },
   {
     "card_id": 5,
-    "url": "card5.svg"
+    "url": "card5.svg",
+    "isFlipped": false
   },
   {
     "card_id": 6,
-    "url": "card6.svg"
+    "url": "card6.svg",
+    "isFlipped": false
   }
 ]
