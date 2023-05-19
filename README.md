@@ -1,1 +1,1 @@
-# My personal template for React
+# Card game
