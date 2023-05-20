@@ -38,6 +38,10 @@ div {
     transform: rotateY(180deg);
 }
 
+.not-flipped .flip-card-inner {
+    transform: rotateY(0deg);
+}
+
 .flip-card-front, .flip-card-back {
     position: absolute;
     width: 100%;

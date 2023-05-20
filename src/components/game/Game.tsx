@@ -1,5 +1,3 @@
-import arrayShuffle from "array-shuffle";
-
 // Components
 import GameGrid from "./GameGrid.tsx"
 import GameInfo from "./GameInfo.tsx"
@@ -9,7 +7,10 @@ import {gameCards} from "../../interface/interfaces.tsx";
 
 // Card data
 import data from '../../data/cards.json'
+
+// Modules
 import {useEffect, useState} from "react";
+import arrayShuffle from "array-shuffle";
 
 const Game = () => {
 
@@ -18,7 +19,7 @@ const Game = () => {
     useEffect(() => {
         // Create new Array with duplicates
         const duplicateCards:gameCards[] = data.flatMap(e=>
-            Array(2).fill({card_id: e.card_id, url: e.url})
+            Array(2).fill({card_id: e.card_id, url: e.url, isFlipped: e.isFlipped, complete: e.complete})
         )
         // Set new ID
         const idUpdateCards = duplicateCards.map((card, index) => ({
