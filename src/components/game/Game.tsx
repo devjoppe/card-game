@@ -33,7 +33,7 @@ const Game = () => {
     console.log(gameCards)
 
     return(
-        <div>
+        <div className="game-container">
             <GameInfo />
             <GameGrid gameCards={gameCards}/>
         </div>

@@ -9,6 +9,30 @@
     border:none;
 }
 
+.game-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.answer {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    color: white;
+}
+
+.answer-item {
+    padding: 8px 12px 8px 12px;
+}
+
+.correct {
+    background-color: mediumspringgreen;
+}
+
+.incorrect {
+    background-color: orangered;
+}
+
 // Cards
 div {
     display:flex;

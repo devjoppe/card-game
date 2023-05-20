@@ -13,6 +13,9 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
     const [playedCard, setPlayedCard] = useState<cardPlayed[]>([])
     const [count, setCount] = useState(0)
 
+    const [wrongAnswer, setWrongAnswer] = useState<boolean>(false)
+    const [correctAnswer, setCorrectAnswer] = useState<boolean>(false)
+
     useEffect(() => {
         setCardDeck(gameCards)
     }, [gameCards])
@@ -20,7 +23,7 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
     const checkAnswer = useCallback(() => {
         console.log("Checking answer", playedCard)
         if(playedCard.length === 2) {
-            //Not correct answer:
+            //Not the correct answer:
             if(playedCard[0] != playedCard[1]) {
                 setTimeout(() =>
                     setCardDeck(current => current.map(card => {
@@ -28,8 +31,16 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
                             return {...card, isFlipped: false}
                         }
                         return card
-                    })), 1000)
+                    })), 3000)
             }
+            // If the correct answer
+
+
+            setTimeout(() => {
+                setWrongAnswer(true)
+                setCorrectAnswer(false)
+            }, 1000)
+
             setCount(0)
             setPlayedCard([])
         }
@@ -46,31 +57,20 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
 
 
 
-    const handleCard = (idNumber:number, cardId:number) => {
+    const handleCard = (idNumber:number|undefined, cardId:number) => {
 
         console.log("Card ID--------> ", idNumber, cardId)
         console.log("Count--------> ", count)
 
+        setWrongAnswer(false)
+        setCorrectAnswer(false)
+
         // Save played cards
-        setPlayedCard(current => current.concat({id: idNumber, card_id: cardId}))
+        if(idNumber && cardId) {
+            setPlayedCard(current => current.concat({id: idNumber, card_id: cardId}))
+        }
         // Set counter for every click
         setCount(current => current + 1)
-
-        /* if(count === 2) {
-            console.log("Run THIS code inside IF!!")
-            if(playedCard != cardId) {
-                // Alla som INTE har completed true, set isFlipped to false -> efter 2 sek
-                setCardDeck(current => current.map(card => {
-                    if(!card.complete) {
-                        return {...card, isFlipped: false}
-                    }
-                    return card
-                }))
-                setCount(0)
-            }
-        } */
-        //setPlayedCard(cardId)
-
     }
 
     //console.log("Played cards: ", playedCard)
@@ -79,22 +79,28 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
     console.log("Played Card OUTSIDE: ", playedCard)
 
     return(
-        <div className="grid">
-            {cardDeck.map((card) => (
-                <div key={card.id}>
-                    <div className={`flip-card ${card.isFlipped ? 'flipped': 'not-flipped'}`} data-card={card.card_id} onClick={() => {handleCard(card.id, card.card_id); card.isFlipped = true}}>
-                        <div className="flip-card-inner">
-                            <div className="flip-card-front">
-                                <img src="../src/assets/images/card-front.png" alt="gamecard" />
-                            </div>
-                            <div className="flip-card-back">
-                                <img src={`../src/assets/images/cards/${card.url}`} alt="gamecard" />
+        <>
+            <div className="answer">
+                {wrongAnswer && <div className="answer-item incorrect">Wrong answer, have another go!</div>}
+                {correctAnswer && <div className="answer-item correct">Nice, you picked the same cards!</div>}
+            </div>
+            <div className="grid">
+                {cardDeck.map((card) => (
+                    <div key={card.id}>
+                        <div className={`flip-card ${card.isFlipped ? 'flipped': 'not-flipped'}`} data-card={card.card_id} onClick={() => {handleCard(card.id, card.card_id); card.isFlipped = true}}>
+                            <div className="flip-card-inner">
+                                <div className="flip-card-front">
+                                    <img src="../src/assets/images/card-front.png" alt="gamecard" />
+                                </div>
+                                <div className="flip-card-back">
+                                    <img src={`../src/assets/images/cards/${card.url}`} alt="gamecard" />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            ))}
-        </div>
+                ))}
+            </div>
+        </>
     )
 }
 
