@@ -5,3 +5,8 @@ export interface gameCards {
     isFlipped: boolean
     complete: boolean
 }
+
+export interface cardPlayed {
+    id: number,
+    card_id: number
+}

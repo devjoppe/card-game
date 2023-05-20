@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
 // Interface
-import {gameCards} from "../../interface/interfaces.tsx";
+import {gameCards, cardPlayed} from "../../interface/interfaces.tsx";
 
 interface gameCardsProps {
     gameCards: gameCards[]
@@ -10,25 +10,56 @@ interface gameCardsProps {
 const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
 
     const [cardDeck, setCardDeck] = useState<gameCards[]>([])
-    const [playedCard, setPlayedCard] = useState<number>(0)
+    const [playedCard, setPlayedCard] = useState<cardPlayed[]>([])
     const [count, setCount] = useState(0)
 
     useEffect(() => {
         setCardDeck(gameCards)
     }, [gameCards])
 
-    const flipCard = (id:number|undefined, cardId:number) => {
+    const checkAnswer = useCallback(() => {
+        console.log("Checking answer", playedCard)
+        if(playedCard.length === 2) {
+            //Not correct answer:
+            if(playedCard[0] != playedCard[1]) {
+                setTimeout(() =>
+                    setCardDeck(current => current.map(card => {
+                        if(!card.complete) {
+                            return {...card, isFlipped: false}
+                        }
+                        return card
+                    })), 1000)
+            }
+            setCount(0)
+            setPlayedCard([])
+        }
+    },[playedCard])
 
-        console.log("Card ID: ", cardId, id)
-        console.log("Count: ", count)
 
-        //setPlayedCard(cardId)
-        setCount(count + 1)
-
+    // Check if count is 2 and then execute
+    useEffect(() => {
+        console.log("COUNT IS RUNNING", count)
         if(count === 2) {
+            checkAnswer()
+        }
+    }, [count, checkAnswer])
+
+
+
+    const handleCard = (idNumber:number, cardId:number) => {
+
+        console.log("Card ID--------> ", idNumber, cardId)
+        console.log("Count--------> ", count)
+
+        // Save played cards
+        setPlayedCard(current => current.concat({id: idNumber, card_id: cardId}))
+        // Set counter for every click
+        setCount(current => current + 1)
+
+        /* if(count === 2) {
+            console.log("Run THIS code inside IF!!")
             if(playedCard != cardId) {
                 // Alla som INTE har completed true, set isFlipped to false -> efter 2 sek
-
                 setCardDeck(current => current.map(card => {
                     if(!card.complete) {
                         return {...card, isFlipped: false}
@@ -37,17 +68,21 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
                 }))
                 setCount(0)
             }
-        }
+        } */
+        //setPlayedCard(cardId)
+
     }
 
-    console.log("Played cards: ", playedCard)
-    console.log("CardDeck: ", cardDeck)
+    //console.log("Played cards: ", playedCard)
+    //console.log("CardDeck: ", cardDeck)
+    console.log("Count: ", count)
+    console.log("Played Card OUTSIDE: ", playedCard)
 
     return(
         <div className="grid">
             {cardDeck.map((card) => (
                 <div key={card.id}>
-                    <div className={`flip-card ${card.isFlipped ? 'flipped': 'not-flipped'}`} data-card={card.card_id} onClick={() => {flipCard(card.id, card.card_id); card.isFlipped = true}}>
+                    <div className={`flip-card ${card.isFlipped ? 'flipped': 'not-flipped'}`} data-card={card.card_id} onClick={() => {handleCard(card.id, card.card_id); card.isFlipped = true}}>
                         <div className="flip-card-inner">
                             <div className="flip-card-front">
                                 <img src="../src/assets/images/card-front.png" alt="gamecard" />
