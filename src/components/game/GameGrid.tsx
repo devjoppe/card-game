@@ -24,7 +24,7 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
         console.log("Checking answer", playedCard)
         if(playedCard.length === 2) {
             //Not the correct answer:
-            if(playedCard[0] != playedCard[1]) {
+            if(playedCard[0].card_id != playedCard[1].card_id) {
                 setTimeout(() =>
                     setCardDeck(current => current.map(card => {
                         if(!card.complete) {
@@ -32,15 +32,26 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
                         }
                         return card
                     })), 3000)
+                setTimeout(() => {
+                    setWrongAnswer(true)
+                    setCorrectAnswer(false)
+                }, 1000)
             }
             // If the correct answer
-
-
-            setTimeout(() => {
-                setWrongAnswer(true)
-                setCorrectAnswer(false)
-            }, 1000)
-
+            if(playedCard[0].card_id === playedCard[1].card_id) {
+               // Set the cards to complete and flipped
+                console.log("Running Complete code...")
+                setCardDeck(current => current.map(card => {
+                    playedCard.map(played => {
+                        if (played.card_id === card.card_id) {
+                            card.isFlipped = true
+                            card.complete = true
+                            return {...card}
+                        }
+                    })
+                    return card
+                }))
+            }
             setCount(0)
             setPlayedCard([])
         }
@@ -74,7 +85,7 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
     }
 
     //console.log("Played cards: ", playedCard)
-    //console.log("CardDeck: ", cardDeck)
+    console.log("CardDeck: ", cardDeck)
     console.log("Count: ", count)
     console.log("Played Card OUTSIDE: ", playedCard)
 
