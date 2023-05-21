@@ -25,13 +25,14 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
         if(playedCard.length === 2) {
             //Not the correct answer:
             if(playedCard[0].card_id != playedCard[1].card_id) {
-                setTimeout(() =>
+                setTimeout(() => {
+                    setCount(0)
                     setCardDeck(current => current.map(card => {
                         if(!card.complete) {
                             return {...card, isFlipped: false}
                         }
                         return card
-                    })), 3000)
+                    }))}, 3000)
                 setTimeout(() => {
                     setWrongAnswer(true)
                     setCorrectAnswer(false)
@@ -51,8 +52,12 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
                     })
                     return card
                 }))
+                setTimeout(() => {
+                    setWrongAnswer(false)
+                    setCorrectAnswer(true)
+                    setCount(0)
+                }, 1000)
             }
-            setCount(0)
             setPlayedCard([])
         }
     },[playedCard])
@@ -98,7 +103,15 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
             <div className="grid">
                 {cardDeck.map((card) => (
                     <div key={card.id}>
-                        <div className={`flip-card ${card.isFlipped ? 'flipped': 'not-flipped'}`} data-card={card.card_id} onClick={() => {handleCard(card.id, card.card_id); card.isFlipped = true}}>
+                        <div className={`flip-card ${card.isFlipped ? 'flipped': 'not-flipped'}`}
+                             data-card={card.card_id}
+                             onClick={() => {
+                                 if(count < 2) {
+                                     handleCard(card.id, card.card_id);
+                                     card.isFlipped = true
+                                 }
+                                 return
+                             }}>
                             <div className="flip-card-inner">
                                 <div className="flip-card-front">
                                     <img src="../src/assets/images/card-front.png" alt="gamecard" />
