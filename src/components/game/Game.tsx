@@ -3,7 +3,7 @@ import GameGrid from "./GameGrid.tsx"
 import GameInfo from "./GameInfo.tsx"
 
 // Interface
-import {gameCards} from "../../interface/interfaces.tsx";
+import {cardPlayed, gameCards} from "../../interface/interfaces.tsx";
 
 // Card data
 import data from '../../data/cards.json'
@@ -15,6 +15,8 @@ import arrayShuffle from "array-shuffle";
 const Game = () => {
 
     const [gameCards, setGameCards] = useState<gameCards[]>([])
+    const [checkIsAnswer, setCheckIsAnswer] = useState<cardPlayed[]>([])
+    //const [counter, setCounter] = useState<number>(0)
 
     useEffect(() => {
         // Create new Array with duplicates
@@ -30,12 +32,15 @@ const Game = () => {
         setGameCards(arrayShuffle(idUpdateCards))
     }, [])
 
-    console.log(gameCards)
+    const setCheckAnswer = (playedCard:cardPlayed[]) => {
+        //console.log("------THIS IS THE ANSWER------->", playedCard)
+        setCheckIsAnswer(playedCard)
+    }
 
     return(
         <div className="game-container">
-            <GameInfo />
-            <GameGrid gameCards={gameCards}/>
+            <GameInfo getAnswer={checkIsAnswer} />
+            <GameGrid gameCards={gameCards} setCheckAnswer={setCheckAnswer}/>
         </div>
     )
 }
