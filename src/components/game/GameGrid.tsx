@@ -21,6 +21,10 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
     }, [gameCards])
 
     const checkAnswer = useCallback(() => {
+
+        // Check if the cards is completed/already played
+        // Todo: Code this with a 2 Foreach?
+
         console.log("Checking answer", playedCard)
         if(playedCard.length === 2) {
             //Not the correct answer:
@@ -71,12 +75,15 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
         }
     }, [count, checkAnswer])
 
-
-
-    const handleCard = (idNumber:number|undefined, cardId:number) => {
+    const handleCard = (idNumber:number|undefined, cardId:number, complete:boolean) => {
 
         console.log("Card ID--------> ", idNumber, cardId)
         console.log("Count--------> ", count)
+
+        // Check if the card has already being played?
+        if(complete) {
+            return
+        }
 
         setWrongAnswer(false)
         setCorrectAnswer(false)
@@ -107,7 +114,7 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards}) => {
                              data-card={card.card_id}
                              onClick={() => {
                                  if(count < 2) {
-                                     handleCard(card.id, card.card_id);
+                                     handleCard(card.id, card.card_id, card.complete);
                                      card.isFlipped = true
                                  }
                                  return
