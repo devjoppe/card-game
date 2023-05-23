@@ -1,5 +1,5 @@
 // React
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import arrayShuffle from "array-shuffle";
 
 // Comment data
@@ -66,7 +66,7 @@ const GameInfo:React.FC<getAnswer> = ({getAnswer}) => {
                     { isShowComment &&
                         <>
                             <div className="comment-dash"></div>
-                            <div className="comment">
+                            <div className={`comment ${commentType === 'bad' ? 'incorrect' : 'correct'}`}>
                                 { comments.length > 0 &&
                                     <div>
                                         { comments[0].title }
