@@ -10,3 +10,7 @@ export interface cardPlayed {
     id: number,
     card_id: number
 }
+
+export interface commentType {
+    title?:string
+}

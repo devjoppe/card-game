@@ -36,14 +36,21 @@
         }
     }
     .comment {
+        width: 500px;
         display: flex;
         align-items: center;
         background: #242424;
         border-radius: 12px;
         border: 1px solid #242424;
-        color: mediumspringgreen;
+        color: lightgrey;
         box-sizing: border-box;
         padding: 15px 25px;
+        &.correct {
+            color: #6cffc7;
+        }
+        &.incorrect {
+            color: #ff6c6c;
+        }
     }
     .comment-dash {
         position: relative;

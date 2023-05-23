@@ -1,5 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {cardPlayed} from "../../interface/interfaces.tsx";
+// React
+import React, {useCallback, useEffect, useState} from "react";
+import arrayShuffle from "array-shuffle";
+
+// Comment data
+import data from '../../data/comments.json'
+
+// Interface
+import {cardPlayed, commentType} from "../../interface/interfaces.tsx";
 
 interface getAnswer {
     getAnswer: cardPlayed[]
@@ -9,26 +16,39 @@ const GameInfo:React.FC<getAnswer> = ({getAnswer}) => {
     const [startFace, setStartFace] = useState<number>(1)
     const [isShowComment, setIsShowComment] = useState(false)
 
+    const [comments, setComments] = useState<commentType[]>([])
+    const [commentType, setCommentType] = useState<string>('')
+
     console.log("Start face in the top: ", startFace)
 
     useEffect(() => {
+        if(commentType) {
+            const filteredComments = data.filter(comment => comment.type === commentType)
+            setComments(arrayShuffle(filteredComments[0].comments))
+            console.log("Comments: ", arrayShuffle(filteredComments[0].comments))
+        }
+    }, [commentType])
+
+    console.log("comments outside: ", comments) //Kan inte läsa [0].title för att det inte har läst in något än...
+
+    useEffect(() => {
         if(getAnswer.length === 2) {
-            console.log("GET ANSWER: ", getAnswer)
             setTimeout(() => {
                 if(getAnswer[0].card_id != getAnswer[1].card_id) {
                     setStartFace(2)
+                    setCommentType('bad')
                     setIsShowComment(true)
-                    console.log("StartFace FAIL: ", startFace)
                 }
                 if(getAnswer[0].card_id === getAnswer[1].card_id) {
                     setStartFace(3)
+                    setCommentType('good')
                     setIsShowComment(true)
-                    console.log("StartFace CORRECT: ", startFace)
                 }
             }, 1000)
         }
         if(getAnswer.length === 1) {
             setStartFace(1)
+            setCommentType('')
             setIsShowComment(false)
         }
     }, [getAnswer, startFace])
@@ -47,7 +67,11 @@ const GameInfo:React.FC<getAnswer> = ({getAnswer}) => {
                         <>
                             <div className="comment-dash"></div>
                             <div className="comment">
-                                This is my comment!
+                                { comments.length > 0 &&
+                                    <div>
+                                        { comments[0].title }
+                                    </div>
+                                 }
                             </div>
                         </>
                     }

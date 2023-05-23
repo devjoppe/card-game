@@ -93,6 +93,7 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards, setCheckAnswer}) => {
         if(idNumber && cardId) {
             setPlayedCard(current => current.concat({id: idNumber, card_id: cardId}))
         }
+        setWrongAnswer(false)
         // Set counter for every click
         setCount(current => current + 1)
     }
