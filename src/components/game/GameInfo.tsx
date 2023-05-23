@@ -19,17 +19,12 @@ const GameInfo:React.FC<getAnswer> = ({getAnswer}) => {
     const [comments, setComments] = useState<commentType[]>([])
     const [commentType, setCommentType] = useState<string>('')
 
-    console.log("Start face in the top: ", startFace)
-
     useEffect(() => {
         if(commentType) {
             const filteredComments = data.filter(comment => comment.type === commentType)
             setComments(arrayShuffle(filteredComments[0].comments))
-            console.log("Comments: ", arrayShuffle(filteredComments[0].comments))
         }
     }, [commentType])
-
-    console.log("comments outside: ", comments) //Kan inte läsa [0].title för att det inte har läst in något än...
 
     useEffect(() => {
         if(getAnswer.length === 2) {

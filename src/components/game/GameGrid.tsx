@@ -15,10 +15,6 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards, setCheckAnswer}) => {
     const [count, setCount] = useState(0)
 
     const [wrongAnswer, setWrongAnswer] = useState<boolean>(false)
-    //const [correctAnswer, setCorrectAnswer] = useState<boolean>(false)
-
-    // Todo: This one is new: When clicked, set new state, send it to game and then to gameInfo
-    //const [isAnswer, setIsAnswer] = useState<boolean|null>(null)
 
     useEffect(() => {
         setCardDeck(gameCards)
@@ -29,9 +25,7 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards, setCheckAnswer}) => {
     }, [setCheckAnswer, playedCard])
 
     const checkAnswer = useCallback(() => {
-
-        //console.log("Checking answer", playedCard)
-
+        // Handles the cards and check if they are the same
         if(playedCard.length === 2) {
             //Not the correct answer:
             if(playedCard[0].card_id != playedCard[1].card_id) {
@@ -50,7 +44,6 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards, setCheckAnswer}) => {
             // If the correct answer
             if(playedCard[0].card_id === playedCard[1].card_id) {
                // Set the cards to complete and flipped
-                //console.log("Running Complete code...")
                 setWrongAnswer(false)
                 setCardDeck(current => current.map(card => {
                     playedCard.map(played => {
@@ -73,17 +66,12 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards, setCheckAnswer}) => {
 
     // Check if count is 2 and then execute
     useEffect(() => {
-        console.log("COUNT IS RUNNING", count)
         if(count === 2) {
             checkAnswer()
         }
     }, [count, checkAnswer])
 
     const handleCard = (idNumber:number|undefined, cardId:number, complete:boolean) => {
-
-        //console.log("Card ID--------> ", idNumber, cardId)
-        //console.log("Count--------> ", count)
-
         // Check if the card has already being played?
         if(complete) {
             return
@@ -97,11 +85,6 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards, setCheckAnswer}) => {
         // Set counter for every click
         setCount(current => current + 1)
     }
-
-    //console.log("Played cards: ", playedCard)
-    //console.log("CardDeck: ", cardDeck)
-    //console.log("Count: ", count)
-    //console.log("Played Card OUTSIDE: ", playedCard)
 
     return(
         <div className="grid">
