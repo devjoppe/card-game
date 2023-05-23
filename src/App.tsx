@@ -1,5 +1,5 @@
 // Components
-import Game from "./components/game/Game.tsx";
+//import Game from "./components/game/Game.tsx";
 import StartGame from "./components/start/StartGame.tsx";
 
 // Import style

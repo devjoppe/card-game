@@ -14,3 +14,9 @@ export interface cardPlayed {
 export interface commentType {
     title?:string
 }
+
+export interface highScoreList {
+    id: string,
+    user: string,
+    score: number
+}
