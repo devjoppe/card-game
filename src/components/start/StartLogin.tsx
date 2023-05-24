@@ -1,19 +1,25 @@
-import {useState} from "react";
+import React, {useState} from "react";
 
 import { db } from '../../firebase/config.ts'
 import {collection, addDoc} from "firebase/firestore";
 
-const StartLogin = () => {
+interface IProp {
+    getUser: (userId:string) => void
+}
+
+const StartLogin:React.FC<IProp> = ({getUser}) => {
 
     const [userName, setUserName] = useState('')
 
     const saveUser = async () => {
         if(userName) {
-            await addDoc(collection(db, 'highscore'), {
+            const docRef = await addDoc(collection(db, 'highscore'), {
                 user: userName,
                 score: 0,
                 complete: false
             })
+            console.log("My doc ref is: ", docRef.id)
+            getUser(docRef.id)
         }
         return
     }

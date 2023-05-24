@@ -1,7 +1,18 @@
 import StartHighScore from "./StartHighScore.tsx";
 import StartLogin from "./StartLogin.tsx";
+import React from "react";
 
-const StartGame = () => {
+interface IProp {
+    startGame: (userId: string) => void
+}
+
+const StartGame:React.FC<IProp> = ({startGame}) => {
+
+    const getUser = (userId:string) => {
+        console.log("User ID: ", userId)
+        startGame(userId)
+    }
+
     return(
         <div className="start">
             <h1>Peeps, the card game</h1>
@@ -16,7 +27,7 @@ const StartGame = () => {
                     <span>aksdjaksj dkajsdka jskdjakjd kajsdka jsdkaskdj aksjdaksdj kasjdkajskd jaksdjaksjdk ajsdk</span>
                     <div className="start-game">
                         <h2>Play</h2>
-                        <StartLogin />
+                        <StartLogin getUser={getUser}/>
                     </div>
                 </div>
             </div>

@@ -9,16 +9,38 @@ import {cardPlayed, gameCards} from "../../interface/interfaces.tsx";
 import data from '../../data/cards.json'
 
 // Modules
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import arrayShuffle from "array-shuffle";
+import {Link} from "react-router-dom";
 
-const Game = () => {
+interface IProp {
+    user: string
+}
+
+const Game:React.FC<IProp> = ({user}) => {
 
     const [gameCards, setGameCards] = useState<gameCards[]>([])
+    const [gameUser, setGameUser] = useState<string>('')
+    const [userScore, setUserScore] = useState(0)
     const [checkIsAnswer, setCheckIsAnswer] = useState<cardPlayed[]>([])
-    //const [counter, setCounter] = useState<number>(0)
+    const [gameBreak, setGameBreak] = useState<boolean>(false)
+    const [isGameComplete, setIsGameComplete] = useState<boolean>(false)    //const [counter, setCounter] = useState<number>(0)
 
     useEffect(() => {
+        setGameBreak(false)
+        // Check if there is a user, if not -> stop the game
+        if(!user && !gameUser) {
+            console.error("NO USER: Game stops")
+            setGameBreak(true)
+            return
+        }
+        // If user current user plays first time
+        if(!gameUser) {
+            setGameUser(user)
+        }
+        setIsGameComplete(false)
+
+        // Setting up new play cards
         // Create new Array with duplicates
         const duplicateCards:gameCards[] = data.flatMap(e=>
             Array(2).fill({card_id: e.card_id, url: e.url, isFlipped: e.isFlipped, complete: e.complete})
@@ -30,17 +52,30 @@ const Game = () => {
         }))
         // Shuffle the array and Save the array
         setGameCards(arrayShuffle(idUpdateCards))
-    }, [])
+    }, [user, gameUser])
 
     const setCheckAnswer = (playedCard:cardPlayed[]) => {
-        //console.log("------THIS IS THE ANSWER------->", playedCard)
         setCheckIsAnswer(playedCard)
+    }
+
+    const gameComplete = (score:number) => {
+        console.log("Game complete", score)
+        setUserScore(score)
+        setIsGameComplete(true)
     }
 
     return(
         <div className="game-container">
-            <GameInfo getAnswer={checkIsAnswer} />
-            <GameGrid gameCards={gameCards} setCheckAnswer={setCheckAnswer}/>
+            {gameBreak && <span>You need to create a user before you can play... duh <Link to={'/'}>Go back</Link></span>}
+            {!gameBreak && <>
+                <GameInfo getAnswer={checkIsAnswer} user={user} gameComplete={gameComplete} />
+                <GameGrid gameCards={gameCards} setCheckAnswer={setCheckAnswer}/>
+            </>}
+            {isGameComplete && <div>
+                <span>GAME IS COMPLETE</span>
+                <span>You score is: {userScore}</span>
+                <button>Play again</button><button>Exit game</button>
+            </div>}
         </div>
     )
 }

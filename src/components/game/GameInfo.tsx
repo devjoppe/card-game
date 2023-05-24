@@ -10,9 +10,14 @@ import {cardPlayed, commentType} from "../../interface/interfaces.tsx";
 
 interface getAnswer {
     getAnswer: cardPlayed[]
+    user: string
+    gameComplete: (score:number) => void
 }
-const GameInfo:React.FC<getAnswer> = ({getAnswer}) => {
+const GameInfo:React.FC<getAnswer> = ({getAnswer, user, gameComplete}) => {
 
+    console.log("Current user that is playing: ", user)
+    const [userScore, setUserScore] = useState<number>(0)
+    const [checkComplete, setCheckComplete] = useState<number>(0)
     const [startFace, setStartFace] = useState<number>(1)
     const [isShowComment, setIsShowComment] = useState(false)
 
@@ -27,8 +32,16 @@ const GameInfo:React.FC<getAnswer> = ({getAnswer}) => {
     }, [commentType])
 
     useEffect(() => {
+        if(checkComplete === 6) {
+            console.log("GAME IS DONE")
+            gameComplete(userScore)
+        }
+    }, [checkComplete, userScore, gameComplete])
+
+    useEffect(() => {
         if(getAnswer.length === 2) {
             setTimeout(() => {
+                setUserScore(userScore + 1)
                 if(getAnswer[0].card_id != getAnswer[1].card_id) {
                     setStartFace(2)
                     setCommentType('bad')
@@ -36,6 +49,7 @@ const GameInfo:React.FC<getAnswer> = ({getAnswer}) => {
                 }
                 if(getAnswer[0].card_id === getAnswer[1].card_id) {
                     setStartFace(3)
+                    setCheckComplete(checkComplete + 1)
                     setCommentType('good')
                     setIsShowComment(true)
                 }
@@ -46,7 +60,7 @@ const GameInfo:React.FC<getAnswer> = ({getAnswer}) => {
             setCommentType('')
             setIsShowComment(false)
         }
-    }, [getAnswer, startFace])
+    }, [getAnswer, startFace, userScore, checkComplete])
 
     return(
         <div className="game-bar">
@@ -72,7 +86,7 @@ const GameInfo:React.FC<getAnswer> = ({getAnswer}) => {
                     }
                 </div>
                 <div className="user-score">
-                    USER SCORE
+                    <span>Turns: </span><span>{userScore}</span>
                 </div>
             </div>
         </div>
