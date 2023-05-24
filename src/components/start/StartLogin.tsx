@@ -8,11 +8,11 @@ const StartLogin = () => {
     const [userName, setUserName] = useState('')
 
     const saveUser = async () => {
-        console.log(userName)
         if(userName) {
             await addDoc(collection(db, 'highscore'), {
                 user: userName,
-                score: 0
+                score: 0,
+                complete: false
             })
         }
         return
@@ -26,7 +26,8 @@ const StartLogin = () => {
                 setUserName('')
             }}>
                 <input type="text" value={userName} onChange={e => setUserName(e.target.value)} required placeholder="Enter username" />
-                <button type="submit" className="start">Start game</button>
+                <span className="info">Username must be over 3 characters long</span>
+                <button type="submit" className="start" disabled={userName.length < 3}>Start game</button>
             </form>
         </div>
     )

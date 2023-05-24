@@ -18,5 +18,6 @@ export interface commentType {
 export interface highScoreList {
     id: string,
     user: string,
-    score: number
+    score: number,
+    complete: boolean
 }

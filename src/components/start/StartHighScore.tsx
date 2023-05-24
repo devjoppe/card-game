@@ -26,7 +26,7 @@ const StartHighScore = () => {
             } else {
                 const dataHighScore:highScoreList[] = []
                 querySnapshot.forEach((doc) => {
-                    dataHighScore.push({id: doc.id, user: doc.data().user, score: doc.data().score})
+                    dataHighScore.push({id: doc.id, user: doc.data().user, score: doc.data().score, complete: doc.data().complete})
                 });
                 console.log("My data highScore: ", dataHighScore)
                 setData(arraySort(dataHighScore, 'score'))
@@ -54,7 +54,7 @@ const StartHighScore = () => {
                     <span className="sub">Username</span>
                     <span className="sub">Turns</span>
                 </div>
-                { data.map((item, index) => {
+                { data.filter(item => item.complete).map((item, index) => {
                     counter++
                     if(counter && counter <= 10) {
                         return <div className="score-item" key={index}>
