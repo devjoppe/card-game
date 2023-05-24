@@ -93,7 +93,7 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards, setCheckAnswer}) => {
                     <div className={`flip-card ${card.isFlipped ? 'flipped': 'not-flipped'}`}
                          data-card={card.card_id}
                          onClick={() => {
-                             if(count < 2) {
+                             if(count < 2 && !card.isFlipped) {
                                  handleCard(card.id, card.card_id, card.complete);
                                  card.isFlipped = true
                              }
