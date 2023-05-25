@@ -12,8 +12,9 @@ interface getAnswer {
     getAnswer: cardPlayed[]
     user: string
     gameComplete: (score:number) => void
+    playAgain: boolean
 }
-const GameInfo:React.FC<getAnswer> = ({getAnswer, user, gameComplete}) => {
+const GameInfo:React.FC<getAnswer> = ({getAnswer, user, gameComplete, playAgain}) => {
 
     console.log("Current user that is playing: ", user)
     const [userScore, setUserScore] = useState<number>(0)
@@ -35,8 +36,14 @@ const GameInfo:React.FC<getAnswer> = ({getAnswer, user, gameComplete}) => {
         if(checkComplete === 6) {
             console.log("GAME IS DONE")
             gameComplete(userScore)
+
+            console.log("Re-setting game variables in GameInfo")
+            if(playAgain) {
+                setCheckComplete(0)
+                setUserScore(0)
+            }
         }
-    }, [checkComplete, userScore, gameComplete])
+    }, [checkComplete, userScore, gameComplete, playAgain])
 
     useEffect(() => {
         if(getAnswer.length === 2) {

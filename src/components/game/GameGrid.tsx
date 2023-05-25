@@ -19,9 +19,6 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards, setCheckAnswer, playAgain
 
     // Setting up game start
     useEffect(() => {
-        if(playAgain){
-            setCount(0)
-        }
         setCardDeck(gameCards)
     }, [gameCards, playAgain])
 
@@ -67,7 +64,6 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards, setCheckAnswer, playAgain
             setPlayedCard([])
         }
     },[playedCard])
-
 
     // Check if count is 2 and then execute
     useEffect(() => {

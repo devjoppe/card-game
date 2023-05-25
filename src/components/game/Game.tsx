@@ -36,6 +36,7 @@ const Game:React.FC<IProp> = ({user}) => {
             setGameBreak(true)
             return
         }
+
         // If user current user plays first time
         if(!gameUser) {
             setGameUser(user)
@@ -43,8 +44,12 @@ const Game:React.FC<IProp> = ({user}) => {
 
         // Reset game loop variables
         if(playAgain) {
-            setPlayAgain(false)
+            setIsGameComplete(false)
+            setUserScore(0)
+            console.log("Does it RESET????", playAgain, isGameComplete, userScore)
         }
+
+        setPlayAgain(false)
 
         // Setting up new play cards
         // Create new Array with duplicates
@@ -58,7 +63,7 @@ const Game:React.FC<IProp> = ({user}) => {
         }))
         // Shuffle the array and Save the array
         setGameCards(arrayShuffle(idUpdateCards))
-    }, [user, gameUser, playAgain])
+    }, [user, gameUser, playAgain, isGameComplete, userScore])
 
     const setCheckAnswer = (playedCard:cardPlayed[]) => {
         setCheckIsAnswer(playedCard)
@@ -74,17 +79,14 @@ const Game:React.FC<IProp> = ({user}) => {
         <div className="game-container">
             {gameBreak && <span>You need to create a user before you can play... duh <Link to={'/'}>Go back</Link></span>}
             {!gameBreak && <>
-                <GameInfo getAnswer={checkIsAnswer} user={user} gameComplete={gameComplete} />
+                <GameInfo getAnswer={checkIsAnswer} user={user} gameComplete={gameComplete} playAgain={playAgain} />
                 <GameGrid gameCards={gameCards} setCheckAnswer={setCheckAnswer} playAgain={playAgain}/>
             </>}
             {isGameComplete && <div className="game-complete-container">
                 <h2>GAME IS COMPLETE</h2>
                 <span>You score is: {userScore}</span>
                 <button onClick={() => {
-                    // Reset game variables
                     setPlayAgain(true)
-                    setIsGameComplete(false)
-                    setUserScore(0)
                 }}>Play again</button><button>Exit game</button>
             </div>}
         </div>
