@@ -64,7 +64,7 @@ const GameInfo:React.FC<getAnswer> = ({getAnswer, user, gameComplete}) => {
 
     return(
         <div className="game-bar">
-            <h1>Peep card game</h1>
+            <h1>Peeps card game</h1>
             <div className="game-info">
                 <div className="peep">
                     <div>

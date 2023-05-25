@@ -19,12 +19,14 @@ interface IProp {
 
 const Game:React.FC<IProp> = ({user}) => {
 
+    // Many of these variables are handling the game loop
     const [gameCards, setGameCards] = useState<gameCards[]>([])
     const [gameUser, setGameUser] = useState<string>('')
     const [userScore, setUserScore] = useState(0)
     const [checkIsAnswer, setCheckIsAnswer] = useState<cardPlayed[]>([])
     const [gameBreak, setGameBreak] = useState<boolean>(false)
     const [isGameComplete, setIsGameComplete] = useState<boolean>(false)    //const [counter, setCounter] = useState<number>(0)
+    const [playAgain, setPlayAgain] = useState(false)
 
     useEffect(() => {
         setGameBreak(false)
@@ -38,21 +40,25 @@ const Game:React.FC<IProp> = ({user}) => {
         if(!gameUser) {
             setGameUser(user)
         }
-        setIsGameComplete(false)
+
+        // Reset game loop variables
+        if(playAgain) {
+            setPlayAgain(false)
+        }
 
         // Setting up new play cards
         // Create new Array with duplicates
         const duplicateCards:gameCards[] = data.flatMap(e=>
             Array(2).fill({card_id: e.card_id, url: e.url, isFlipped: e.isFlipped, complete: e.complete})
         )
-        // Set new ID
+        // Set new IDs
         const idUpdateCards = duplicateCards.map((card, index) => ({
             ...card,
             id: index + 1
         }))
         // Shuffle the array and Save the array
         setGameCards(arrayShuffle(idUpdateCards))
-    }, [user, gameUser])
+    }, [user, gameUser, playAgain])
 
     const setCheckAnswer = (playedCard:cardPlayed[]) => {
         setCheckIsAnswer(playedCard)
@@ -69,12 +75,17 @@ const Game:React.FC<IProp> = ({user}) => {
             {gameBreak && <span>You need to create a user before you can play... duh <Link to={'/'}>Go back</Link></span>}
             {!gameBreak && <>
                 <GameInfo getAnswer={checkIsAnswer} user={user} gameComplete={gameComplete} />
-                <GameGrid gameCards={gameCards} setCheckAnswer={setCheckAnswer}/>
+                <GameGrid gameCards={gameCards} setCheckAnswer={setCheckAnswer} playAgain={playAgain}/>
             </>}
-            {isGameComplete && <div>
-                <span>GAME IS COMPLETE</span>
+            {isGameComplete && <div className="game-complete-container">
+                <h2>GAME IS COMPLETE</h2>
                 <span>You score is: {userScore}</span>
-                <button>Play again</button><button>Exit game</button>
+                <button onClick={() => {
+                    // Reset game variables
+                    setPlayAgain(true)
+                    setIsGameComplete(false)
+                    setUserScore(0)
+                }}>Play again</button><button>Exit game</button>
             </div>}
         </div>
     )

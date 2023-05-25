@@ -4,11 +4,12 @@ import React, {useCallback, useEffect, useState} from "react";
 import {gameCards, cardPlayed} from "../../interface/interfaces.tsx";
 
 interface gameCardsProps {
-    gameCards: gameCards[]
-    setCheckAnswer: (data: cardPlayed[]) => void
+    gameCards: gameCards[],
+    setCheckAnswer: (data: cardPlayed[]) => void,
+    playAgain: boolean
 }
 
-const GameGrid:React.FC<gameCardsProps> = ({gameCards, setCheckAnswer}) => {
+const GameGrid:React.FC<gameCardsProps> = ({gameCards, setCheckAnswer, playAgain}) => {
 
     const [cardDeck, setCardDeck] = useState<gameCards[]>([])
     const [playedCard, setPlayedCard] = useState<cardPlayed[]>([])
@@ -16,9 +17,13 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards, setCheckAnswer}) => {
 
     const [wrongAnswer, setWrongAnswer] = useState<boolean>(false)
 
+    // Setting up game start
     useEffect(() => {
+        if(playAgain){
+            setCount(0)
+        }
         setCardDeck(gameCards)
-    }, [gameCards])
+    }, [gameCards, playAgain])
 
     useEffect(() => {
         setCheckAnswer(playedCard)

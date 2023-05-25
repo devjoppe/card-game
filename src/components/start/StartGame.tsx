@@ -15,7 +15,7 @@ const StartGame:React.FC<IProp> = ({startGame}) => {
 
     return(
         <div className="start">
-            <h1>Peeps, the card game</h1>
+            <h1>Peeps card game</h1>
             <img src="../src/assets/images/character/peep_correct.png" alt="The peep" />
             <div className="start-info-container">
                 <div className="left">
