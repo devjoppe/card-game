@@ -11,7 +11,7 @@ import data from '../../data/cards.json'
 // Modules
 import React, {useEffect, useState} from "react";
 import arrayShuffle from "array-shuffle";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 interface IProp {
     user: string
@@ -27,6 +27,8 @@ const Game:React.FC<IProp> = ({user}) => {
     const [gameBreak, setGameBreak] = useState<boolean>(false)
     const [isGameComplete, setIsGameComplete] = useState<boolean>(false)    //const [counter, setCounter] = useState<number>(0)
     const [playAgain, setPlayAgain] = useState(false)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         setGameBreak(false)
@@ -84,10 +86,13 @@ const Game:React.FC<IProp> = ({user}) => {
             </>}
             {isGameComplete && <div className="game-complete-container">
                 <h2>GAME IS COMPLETE</h2>
-                <span>You score is: {userScore}</span>
-                <button onClick={() => {
-                    setPlayAgain(true)
-                }}>Play again</button><button>Exit game</button>
+                <span className="complete-score">You score is: {userScore}</span>
+                <div className="play-again">
+                    <button className="play-button" onClick={() => {
+                        setPlayAgain(true)
+                    }}>Play again</button>
+                    <button onClick={() => {navigate('/')}}>Exit game</button>
+                </div>
             </div>}
         </div>
     )
