@@ -19,6 +19,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    h1 {
+        font-size: 24px;
+    }
 }
 
 .game-info {
@@ -172,5 +175,16 @@ div {
     .play-button {
         font-weight: bold;
         margin-right: 8px;
+    }
+}
+
+.user-score {
+    align-items: center;
+    .score, .turns {
+        font-size: 32px;
+    }
+    .turns {
+        margin-right: 8px;
+        font-family: 'Old Standard TT', serif;
     }
 }

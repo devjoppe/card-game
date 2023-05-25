@@ -1,4 +1,4 @@
-// React
+// React and modules
 import React, {useEffect, useState} from "react";
 import arrayShuffle from "array-shuffle";
 
@@ -93,7 +93,7 @@ const GameInfo:React.FC<getAnswer> = ({getAnswer, user, gameComplete, playAgain}
                     }
                 </div>
                 <div className="user-score">
-                    <span>Turns: </span><span>{userScore}</span>
+                    <span className="turns">Turns: </span><span className="score">{userScore}</span>
                 </div>
             </div>
         </div>

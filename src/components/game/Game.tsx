@@ -2,6 +2,9 @@
 import GameGrid from "./GameGrid.tsx"
 import GameInfo from "./GameInfo.tsx"
 
+// Modules
+import {updateUser} from "../../service/updateUser.ts";
+
 // Interface
 import {cardPlayed, gameCards} from "../../interface/interfaces.tsx";
 
@@ -71,10 +74,12 @@ const Game:React.FC<IProp> = ({user}) => {
         setCheckIsAnswer(playedCard)
     }
 
-    const gameComplete = (score:number) => {
+    const gameComplete = async (score:number) => {
         console.log("Game complete", score)
         setUserScore(score)
         setIsGameComplete(true)
+        // Testing by using an own external module in Services
+        await updateUser(gameUser, score)
     }
 
     return(

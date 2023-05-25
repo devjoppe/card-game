@@ -1,5 +1,7 @@
+// React
 import React, {useState} from "react";
 
+// Firestore
 import { db } from '../../firebase/config.ts'
 import {collection, addDoc} from "firebase/firestore";
 

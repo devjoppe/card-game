@@ -24,7 +24,6 @@ function App() {
             <Routes>
                 <Route path="/" element={<StartGame startGame={startGame}/>} />
                 <Route path="/play" element={<Game user={currentUser}/>} />
-            {/* <Game /> */}
             </Routes>
         </div>
     )
