@@ -10,10 +10,13 @@ import {cardPlayed, commentType} from "../../interface/interfaces.tsx";
 
 interface getAnswer {
     getAnswer: cardPlayed[]
+    user: string
     gameComplete: (score:number) => void
     playAgain: boolean
 }
-const GameInfo:React.FC<getAnswer> = ({getAnswer, gameComplete, playAgain}) => {
+const GameInfo:React.FC<getAnswer> = ({getAnswer, user, gameComplete, playAgain}) => {
+
+    console.log("user:", user)
 
     const [userScore, setUserScore] = useState<number>(0)
     const [checkComplete, setCheckComplete] = useState<number>(0)
