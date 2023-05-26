@@ -51,7 +51,6 @@ const Game:React.FC<IProp> = ({user}) => {
         if(playAgain) {
             setIsGameComplete(false)
             setUserScore(0)
-            console.log("Does it RESET????", playAgain, isGameComplete, userScore)
         }
 
         setPlayAgain(false)
@@ -75,7 +74,6 @@ const Game:React.FC<IProp> = ({user}) => {
     }
 
     const gameComplete = async (score:number) => {
-        console.log("Game complete", score)
         setUserScore(score)
         setIsGameComplete(true)
         // Testing by using an own external module in Services

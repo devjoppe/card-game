@@ -103,10 +103,10 @@ const GameGrid:React.FC<gameCardsProps> = ({gameCards, setCheckAnswer, playAgain
                          }}>
                         <div className="flip-card-inner">
                             <div className="flip-card-front">
-                                <img src="../src/assets/images/card-front.png" alt="gamecard" />
+                                <img src="./images/card-front.png" alt="gamecard" />
                             </div>
                             <div className={`${wrongAnswer && !card.complete && `incorrect`} flip-card-back`}>
-                                <img src={`../src/assets/images/cards/${card.url}`} alt="gamecard" />
+                                <img src={`./images/cards/${card.url}`} alt="gamecard" />
                             </div>
                         </div>
                     </div>

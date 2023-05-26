@@ -16,7 +16,8 @@ interface getAnswer {
 }
 const GameInfo:React.FC<getAnswer> = ({getAnswer, user, gameComplete, playAgain}) => {
 
-    console.log("Current user that is playing: ", user)
+    console.info("Current user that is playing: ", user)
+
     const [userScore, setUserScore] = useState<number>(0)
     const [checkComplete, setCheckComplete] = useState<number>(0)
     const [startFace, setStartFace] = useState<number>(1)
@@ -34,10 +35,8 @@ const GameInfo:React.FC<getAnswer> = ({getAnswer, user, gameComplete, playAgain}
 
     useEffect(() => {
         if(checkComplete === 6) {
-            console.log("GAME IS DONE")
+            console.info("Game completed")
             gameComplete(userScore)
-
-            console.log("Re-setting game variables in GameInfo")
             if(playAgain) {
                 setCheckComplete(0)
                 setUserScore(0)
@@ -75,9 +74,9 @@ const GameInfo:React.FC<getAnswer> = ({getAnswer, user, gameComplete, playAgain}
             <div className="game-info">
                 <div className="peep">
                     <div>
-                        {startFace === 1 && <img src="../../src/assets/images/character/peep_default.png" alt="peep" /> }
-                        {startFace === 2 && <img src="../../src/assets/images/character/peep_incorrect.png" alt="peep" /> }
-                        {startFace === 3 && <img src="../../src/assets/images/character/peep_correct.png" alt="peep" /> }
+                        {startFace === 1 && <img src="./images/character/peep_default.png" alt="peep" /> }
+                        {startFace === 2 && <img src="./images/character/peep_incorrect.png" alt="peep" /> }
+                        {startFace === 3 && <img src="./images/character/peep_correct.png" alt="peep" /> }
                     </div>
                     { isShowComment &&
                         <>

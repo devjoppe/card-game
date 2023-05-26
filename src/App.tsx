@@ -5,7 +5,7 @@ import StartGame from "./components/start/StartGame.tsx";
 // Import style
 import './assets/style/css/style.css'
 import {useState} from "react";
-import {Routes, Route, useNavigate} from "react-router-dom";
+import {Routes, Route, useNavigate, BrowserRouter} from "react-router-dom";
 
 function App() {
 
@@ -16,15 +16,16 @@ function App() {
     const startGame = (userId:string) => {
         setCurrentUser(userId)
         navigate('/play')
-        console.log("Starting the game with user ID:", currentUser)
     }
 
     return (
         <div>
-            <Routes>
-                <Route path="/" element={<StartGame startGame={startGame}/>} />
-                <Route path="/play" element={<Game user={currentUser}/>} />
-            </Routes>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<StartGame startGame={startGame}/>} />
+                    <Route path="/play" element={<Game user={currentUser}/>} />
+                </Routes>
+            </BrowserRouter>
         </div>
     )
 }

@@ -20,7 +20,6 @@ const StartLogin:React.FC<IProp> = ({getUser}) => {
                 score: 0,
                 complete: false
             })
-            console.log("My doc ref is: ", docRef.id)
             getUser(docRef.id)
         }
         return
@@ -30,7 +29,7 @@ const StartLogin:React.FC<IProp> = ({getUser}) => {
         <div>
             <form onSubmit={(e) => {
                 e.preventDefault()
-                saveUser().then(() => {console.log("Is it done?")})
+                saveUser().then(() => {console.info("User OK")})
                 setUserName('')
             }}>
                 <input type="text" value={userName} onChange={e => setUserName(e.target.value)} required placeholder="Enter username" />

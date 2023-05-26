@@ -19,22 +19,19 @@ const StartHighScore = () => {
         setIsPending(true)
         const getData = async () => {
             const querySnapshot = await getDocs(collection(db, "highscore"));
-            console.log(querySnapshot)
             if(querySnapshot.empty) {
-                setError('There is no highscore yet')
+                setError('There is no highscore')
                 setIsPending(false)
             } else {
                 const dataHighScore:highScoreList[] = []
                 querySnapshot.forEach((doc) => {
                     dataHighScore.push({id: doc.id, user: doc.data().user, score: doc.data().score, complete: doc.data().complete})
-                });
-                console.log("My data highScore: ", dataHighScore)
+                })
                 setData(arraySort(dataHighScore, 'score'))
             }
         }
         getData().then(() => {
             setIsPending(false)
-            console.log("Data was collected")
         }).catch(err => {
             console.error(err.message)
             setError(err.message)
