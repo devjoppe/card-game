@@ -30,6 +30,7 @@
     align-items: flex-end;
     span {
         text-align: right;
+        margin-bottom: 16px;
     }
 }
 
@@ -47,7 +48,6 @@
     border-radius: 0;
     box-sizing: border-box;
     padding: 32px;
-    margin-top: 32px;
 }
 
 .list {

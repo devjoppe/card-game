@@ -31,7 +31,8 @@ const StartGame:React.FC<IProp> = ({getCurrentUser}) => {
                 </div>
                 <div className="right">
                     <h2>About the game</h2>
-                    <span>aksdjaksj dkajsdka jskdjakjd kajsdka jsdkaskdj aksjdaksdj kasjdkajskd jaksdjaksjdk ajsdk</span>
+                    <span>The game consists of a set of cards, each with a matching pair. The objective is to find all the matching pairs by flipping over two cards at a time.</span>
+                    <span>Visit: <a href="https://www.openpeeps.com/" target="_blank">https://www.openpeeps.com/</a>for awesome illustrations.</span>
                     <div className="start-game">
                         <h2>Play</h2>
                         <StartLogin getUser={getUser}/>
