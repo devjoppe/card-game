@@ -5,24 +5,21 @@ import StartGame from "./components/start/StartGame.tsx";
 // Import style
 import './assets/style/css/style.css'
 import {useState} from "react";
-import {Routes, Route, useNavigate, BrowserRouter} from "react-router-dom";
+import {Routes, Route, BrowserRouter} from "react-router-dom";
 
 function App() {
 
     const [currentUser, setCurrentUser] = useState<string>('')
 
-    const navigate = useNavigate()
-
-    const startGame = (userId:string) => {
-        setCurrentUser(userId)
-        navigate('/play')
+    const getCurrentUser = (user:string) => {
+        setCurrentUser(user)
     }
 
     return (
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<StartGame startGame={startGame}/>} />
+                    <Route path="/" element={<StartGame getCurrentUser={getCurrentUser}/>} />
                     <Route path="/play" element={<Game user={currentUser}/>} />
                 </Routes>
             </BrowserRouter>

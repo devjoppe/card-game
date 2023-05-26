@@ -1,15 +1,23 @@
 import StartHighScore from "./StartHighScore.tsx";
 import StartLogin from "./StartLogin.tsx";
 import React from "react";
+import {useNavigate} from "react-router-dom";
 
 interface IProp {
-    startGame: (userId: string) => void
+    getCurrentUser: (user:string) => void
 }
 
-const StartGame:React.FC<IProp> = ({startGame}) => {
+const StartGame:React.FC<IProp> = ({getCurrentUser}) => {
+
+    const navigate = useNavigate()
+
+    const startGame = () => {
+        navigate('/play')
+    }
 
     const getUser = (userId:string) => {
-        startGame(userId)
+        getCurrentUser(userId)
+        startGame()
     }
 
     return(
