@@ -17,7 +17,7 @@ function App() {
 
     return (
         <div>
-            <BrowserRouter>
+            <BrowserRouter basename="/card-game">
                 <Routes>
                     <Route path="/" element={<StartGame getCurrentUser={getCurrentUser}/>} />
                     <Route path="/play" element={<Game user={currentUser}/>} />
