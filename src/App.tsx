@@ -7,6 +7,9 @@ import './assets/style/css/style.css'
 import {useState} from "react";
 import {Routes, Route, BrowserRouter} from "react-router-dom";
 
+const prodUrl = "/project/peeps-card-game"
+//const devUrl = "/"
+
 function App() {
 
     const [currentUser, setCurrentUser] = useState<string>('')
@@ -17,7 +20,7 @@ function App() {
 
     return (
         <div>
-            <BrowserRouter basename="/project/peeps-card-game">
+            <BrowserRouter basename={prodUrl}>
                 <Routes>
                     <Route path="/" element={<StartGame getCurrentUser={getCurrentUser}/>} />
                     <Route path="/play" element={<Game user={currentUser}/>} />
