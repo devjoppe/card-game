@@ -1,6 +1,6 @@
-# Peeps - The card Game
+# Peeps - The Card Game
 
-This is was a personal learning project to create an memory card game using the cool illustrations from [Open Peeps](https://www.openpeeps.com/)  as the card designs. The project aimed to use React for the frontend development and incorporate Firebase as a simple backend for user and highscore management.
+This was a personal learning project to create a memory card game using the cool illustrations from [Open Peeps](https://www.openpeeps.com/)  as the card designs. The project aimed to use React for the frontend development and incorporate Firebase as a simple backend for the user and Highscore management.
 
 ## The solution
 
